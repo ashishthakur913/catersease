@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: User Information API
+
+paths:
+  /api/v1/users:
+    post:
+      summary: Insert user information
+      operationId: createUser
+      requestBody:
+        description: User information to insert
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+      tags:
+        - Users
+
+  /api/v1/orders/{driver_id}:
+    get:
+      summary: Get orders by driver ID
+      operationId: getOrdersByDriverID
+      parameters:
+        - name: driver_id
+          in: path
+          description: ID of the driver to get orders for
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '404':
+          description: Not Found
+      tags:
+        - Orders
+
+  /api/v1/orders/{order_id}:
+    put:
+      summary: Update order information
+      operationId: updateOrder
+      parameters:
+        - name: order_id
+          in: path
+          description: ID of the order to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Order information to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      tags:
+        - Orders
+
+  /health:
+    get:
+      summary: Check API health
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+      tags:
+        - Health
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - email
+        - phone_number
+        - street
+        - city
+        - state
+        - postal_code
+        - country
+        - google_url
+      properties:
+        name:
+          type: string
+          description: Name of the user
+        email:
+          type: string
+          description: Email of the user
+        phone_number:
+          type: string
+          description: Phone number of the user
+        notes:
+          type: string
+          description: Additional notes about the user
+        street:
+          type: string
+          description: Street address
+        city:
+          type: string
+          description: City
+        state:
+          type: string
+          description: State
+        postal_code:
+          type: string
+          description: Postal code
+        country:
+          type: string
+          description: Country
+        unit:
+          type: string
+          description: Unit or apartment number
+        google_url:
+          type: string
+          description: URL to the address on Google Maps
+    Order:
+      type: object
+      required:
+        - user_id
+        - driver_id
+        - status
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the order
+        user_id:
+          type: integer
+          format: int64
+          description: ID of the user who placed the order
+        driver_id:
+          type: integer
+          format: int64
+          description: ID of the driver who will deliver the order
+        status:
+          type: string
+          description: Current status of the order
+        notes:
+          type: string
+          description: Additional notes about the order

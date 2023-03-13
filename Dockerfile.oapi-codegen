@@ -1,0 +1,15 @@
+FROM golang:1.17.5-alpine3.15
+
+RUN apk add --no-cache git
+
+WORKDIR /app
+
+RUN git clone https://github.com/deepmap/oapi-codegen.git
+
+WORKDIR /app/oapi-codegen
+
+RUN go build -o /usr/local/bin/oapi-codegen ./cmd/oapi-codegen
+
+WORKDIR /app
+
+CMD ["oapi-codegen"]
