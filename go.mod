@@ -3,16 +3,14 @@ module github.com/ashishthakur913/CaterEase
 go 1.18
 
 require (
-	github.com/deepmap/oapi-codegen v1.12.4
 	github.com/labstack/echo/v4 v4.10.2
+	github.com/lib/pq v1.10.7
 	gorm.io/driver/postgres v1.5.0
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
 )
 
 require (
-	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.3.0 // indirect

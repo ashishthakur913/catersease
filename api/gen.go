@@ -51,6 +51,9 @@ type ServerInterface interface {
 	// Insert user information
 	// (POST /api/v1/users)
 	CreateUser(ctx echo.Context) error
+	// Check API health
+	// (GET /health)
+	GetHealth(ctx echo.Context) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -64,6 +67,15 @@ func (w *ServerInterfaceWrapper) CreateUser(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.CreateUser(ctx)
+	return err
+}
+
+// GetHealth converts echo context to params.
+func (w *ServerInterfaceWrapper) GetHealth(ctx echo.Context) error {
+	var err error
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetHealth(ctx)
 	return err
 }
 
@@ -96,5 +108,6 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	}
 
 	router.POST(baseURL+"/api/v1/users", wrapper.CreateUser)
+	router.GET(baseURL+"/health", wrapper.GetHealth)
 
 }
