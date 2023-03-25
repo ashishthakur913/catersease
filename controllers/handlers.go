@@ -5,13 +5,13 @@ import (
 )
 
 type Handlers struct {
-    UserController  *UserController
+	UserController *UserController
 }
 
 func (s *Handlers) CreateUser(ctx echo.Context) error {
-    return s.UserController.CreateUser(ctx)
+	return s.UserController.CreateUser(ctx)
 }
 
 func (s *Handlers) GetHealth(ctx echo.Context) error {
-    return s.UserController.GetHealth(ctx)
+	return s.UserController.GetHealth(ctx)
 }

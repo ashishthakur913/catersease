@@ -1,0 +1,48 @@
+I am trying to create a typical 3 layer rest application
+Below I have the persistance layer (package repositories)
+There is a main.go that initializes Open API generated code and passes handlers to RegisterHandlers
+Right now it passes handlers represented by persistance layer methods
+I want to add a controler layer and a service layer injected.
+controller should call service layer and service layer should call persistencer layer
+handlers passed to RegisterHandlers should belong to controler layer 
+write me a psuedocode using services/user_service.go and controllers/user_controller.go
+
+
+order_repository.go
+package repositories
+func (s *DBServer) CreateOrder(ctx echo.Context) error
+
+user_repository.go
+package repositories
+func (s *DBServer) CreateUser(ctx echo.Context) error
+
+repository.go
+package repositories
+type DBServer struct {
+    db *gorm.DB
+}
+
+func NewDBServer() (*DBServer, error) {
+    dsn := "host=db port=5432 user=user password=password dbname=mydb sslmode=disable"
+    db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+    if err != nil {
+        return nil, err
+    }
+
+    // Migrate the schema
+    err = db.AutoMigrate(&models.User{}, &models.Order{}, &models.Driver{})
+    if err != nil {
+        return nil, err
+    }
+
+    return &DBServer{db}, nil
+}
+
+main.go
+
+package main
+s := &repositories.DBServer{
+	db: db,
+}
+
+api.RegisterHandlers(e, s)
