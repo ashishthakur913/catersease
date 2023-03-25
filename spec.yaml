@@ -26,61 +26,61 @@ paths:
       tags:
         - Users
 
-  /api/v1/orders/{driver_id}:
-    get:
-      summary: Get orders by driver ID
-      operationId: getOrdersByDriverID
-      parameters:
-        - name: driver_id
-          in: path
-          description: ID of the driver to get orders for
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Order'
-        '404':
-          description: Not Found
-      tags:
-        - Orders
+  # /api/v1/orders/{driver_id}:
+  #   get:
+  #     summary: Get orders by driver ID
+  #     operationId: getOrdersByDriverID
+  #     parameters:
+  #       - name: driver_id
+  #         in: path
+  #         description: ID of the driver to get orders for
+  #         required: true
+  #         schema:
+  #           type: integer
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/Order'
+  #       '404':
+  #         description: Not Found
+  #     tags:
+  #       - Orders
 
-  /api/v1/orders/{order_id}:
-    put:
-      summary: Update order information
-      operationId: updateOrder
-      parameters:
-        - name: order_id
-          in: path
-          description: ID of the order to update
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        description: Order information to update
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
-      tags:
-        - Orders
+  # /api/v1/orders/{order_id}:
+  #   put:
+  #     summary: Update order information
+  #     operationId: updateOrder
+  #     parameters:
+  #       - name: order_id
+  #         in: path
+  #         description: ID of the order to update
+  #         required: true
+  #         schema:
+  #           type: integer
+  #     requestBody:
+  #       description: Order information to update
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Order'
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Order'
+  #       '400':
+  #         description: Bad Request
+  #       '404':
+  #         description: Not Found
+  #     tags:
+  #       - Orders
 
   /health:
     get:
